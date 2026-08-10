@@ -2,13 +2,13 @@
  * @param {number[]} nums
  * @return {number}
  */
-var missingNumber = function (nums) {
+var missingNumber = function(nums) {
     let n = nums.length;
-    let outcome = n * (n + 1) / 2;
+    let outcome = n*(n+1)/2;
     let sum = 0;
 
-    for (num of nums) {
-        sum += num;
+    for (let num of nums){
+        sum+=num;
     }
-    return outcome - sum;
+    return outcome - sum ;
 };
