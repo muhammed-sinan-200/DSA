@@ -2,14 +2,15 @@
  * @param {number} n
  * @return {number}
  */
-var climbStairs = function(n) {
-    let dp = new Array (n-1);
+var climbStairs = function (n) {
+    let a = 1;
+    let b = 2;
+    if (n <= 2) return n;
 
-    dp[1] = 1;
-    dp[2] = 2;
-
-    for (let i =3 ;i<=n;i++){
-        dp[i] = dp[i-1]+dp[i-2];
+    for (let i = 3; i <= n; i++) {
+        let current = a + b;
+        a = b;
+        b = current;
     }
-    return dp[n];
+    return b;
 };
