@@ -3,35 +3,23 @@
  * @param {number} target
  * @return {number[][]}
  */
-var combinationSum = function(candidates, target) {
-     const result = [];
+var combinationSum = function (candidates, target) {
+    let res = [];
 
-    function backtrack(start, current, sum) {
-        // Found a valid combination
-        if (sum === target) {
-            result.push([...current]);
+    function dfs(i, cur, total) {
+        if (total === target) {
+            res.push([...cur]);
             return;
         }
-
-        // Sum exceeded target
-        if (sum > target) {
+        if (i >=candidates.length || total > target) {
             return;
         }
+        cur.push(candidates[i]);
+        dfs(i, cur, total + candidates[i]);
 
-        for (let i = start; i < candidates.length; i++) {
-            current.push(candidates[i]);
-
-            backtrack(
-                i,
-                current,
-                sum + candidates[i]
-            );
-
-            current.pop();
-        }
+        cur.pop();
+        dfs(i + 1, cur, total);
     }
-
-    backtrack(0, [], 0);
-
-    return result;
+    dfs(0, [], 0);
+    return res;
 };
