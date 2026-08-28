@@ -10,25 +10,24 @@
  * @param {TreeNode} root
  * @return {number}
  */
-var rob = function(root) {
-     function dfs(node) {
-        if (node === null) {
+var rob = function (root) {
+    function travel(root) {
+        if (root === null) {
             return [0, 0];
         }
 
-        let [leftRob, leftSkip] = dfs(node.left);
-        let [rightRob, rightSkip] = dfs(node.right);
+        let left_node_choices = travel(root.left);
+        let right_node_choices = travel(root.right);
 
-        let robCurrent = node.val + leftSkip + rightSkip;
+        let options = [0, 0];
 
-        let skipCurrent =
-            Math.max(leftRob, leftSkip) +
-            Math.max(rightRob, rightSkip);
+        options[0] = root.val + left_node_choices[1] + right_node_choices[1];
+        options[1] = Math.max(left_node_choices[0], left_node_choices[1]) +
+            Math.max(right_node_choices[0], right_node_choices[1]);
 
-        return [robCurrent, skipCurrent];
+        return options;
     }
+    let options = travel(root);
 
-    let [robRoot, skipRoot] = dfs(root);
-
-    return Math.max(robRoot, skipRoot);
+    return Math.max(options[0], options[1]);
 };
